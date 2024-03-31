@@ -1,23 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Flow from './pages/Main';
+import { Suspense } from 'react';
+import UpFile from './pages/UpFile/UpFile';
+import GraphChart from './components/Chart/Chart';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Suspense fallback={<div>loading...</div>}>
+          <Routes>
+            <Route path='/tree' element={<Flow />} />
+            <Route path='/upfile' element={<UpFile/>} />
+            <Route path='/chart' element={<GraphChart/>} />
+          </Routes>
+        </Suspense>
+
+      </BrowserRouter>
     </div>
   );
 }

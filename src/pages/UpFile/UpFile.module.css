@@ -1,0 +1,59 @@
+.container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input_container {
+    height: 200px;
+    width: 400px;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 0 0 12px #00000012;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.input {
+    border-bottom: 1px solid #ccc;
+}
+
+.input > label {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: red;
+}
+
+.action > input {
+    border: none;
+    background-color: aqua;
+    padding: 8px 20px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.uploaded_file {
+    width: 80%;
+}
+
+.file_name {
+    text-align: center;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.warning {
+    float: right;
+    color: orange;
+}
+
+.support_threshold {
+    display: flex;
+    justify-content: space-between  ;
+    width: 80%;
+}

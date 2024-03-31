@@ -1,16 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../../components/Header/Header";
 import styles from "./UpFile.module.css"
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import GraphChart from "../../components/Chart/Chart";
 
 const UpFile = () => {
+    const [file, setFile] = useState(null);
+    const [transferFile, setTransferFile] = useState(null)
+    const [supportCount, setSupportCount] = useState(0);
+    const [warning, setWarning] = useState('');
+    const [loaded, setLoaded] = useState(false);
 
-    const [file, setFile] = useState('')
-    const [supportCount, setSupportCount] = useState(0)
-    const [warning, setWarning] = useState('')
-    const navigate = useNavigate()
 
+    useEffect(() => {
+        const fileInStorage = localStorage.getItem("file");
+        if (fileInStorage === null) {
+            setLoaded(false);
+        }
+        else {
+            setTransferFile(JSON.parse(fileInStorage));
+            setLoaded(true);
+        }
+    }, [])
 
     const handleSubmit = async () => {
         if (file) {
@@ -25,29 +36,36 @@ const UpFile = () => {
                             'Content-Type': 'multipart/form-data'
                         }
                     }
-                )
-                console.log(response.data)
+                );
+                console.log(response.data);
                 const path = response.data;
                 localStorage.setItem('file', JSON.stringify(path));
-                navigate("/tree")
+                setTransferFile(path)
+                setLoaded(true);
             }
             catch (error) {
-                console.log(error)
+                console.log(error);
             }
-
         }
-    }
+    };
+
     const handleSelectedFile = event => {
-        const selectedFile = event.target.files[0]
+        const selectedFile = event.target.files[0];
         if (selectedFile.name.endsWith("csv")) {
-            setFile(selectedFile)
-            setWarning('')
+            setFile(selectedFile);
+            setWarning('');
         }
         else {
-            setFile()
-            setWarning('File không hợp lệ!')
+            setFile(null);
+            setWarning('File không hợp lệ!');
         }
-    }
+    };
+
+    const handleGoClick = () => {
+        handleSubmit();
+        console.log(file)
+    };
+
     return (
         <>
             <Header />
@@ -59,19 +77,27 @@ const UpFile = () => {
                     </div>
                     <div className={styles.uploaded_file}>
                         <div className={styles.title}>Uploaded:</div>
-                        <div className={styles.file_name}>{file ? file.name : ''}</div>
+                        <div className={styles.file_name}>{
+                            file ? file.name : transferFile ? transferFile.storedName : ''
+                        }</div>
                         <div className={styles.warning}>{warning}</div>
                     </div>
                     <div className={styles.support_threshold}>
                         <label htmlFor="supportthreshold">Support theshold:</label>
-                        <input type="number" id="supporttheshold" value={supportCount} onChange={(e) => setSupportCount(e.target.value)}/>
+                        <input type="number" id="supporttheshold" value={supportCount} onChange={(e) => setSupportCount(e.target.value)} disabled />
                     </div>
                     <div className={styles.action}>
-                        <input type="button" onClick={handleSubmit} value={"GO"} />
+                        <input type="button" onClick={handleGoClick} value={"GO"} />
                     </div>
                 </div>
             </form>
+            {loaded && 
+                <div className={styles.chart_container}>
+                    <GraphChart data={transferFile}/>
+                </div>
+            }
         </>
-    )
-}
+    );
+};
+
 export default UpFile;

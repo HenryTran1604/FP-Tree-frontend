@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
     const [fileName, setFileName] = useState();
-    const [uploaded, setUploaded] = useState(true);
+    const [uploaded, setUploaded] = useState(false);
 
     useEffect(() => {
         const fileInStorage = localStorage.getItem("file");
@@ -15,7 +15,7 @@ const Header = () => {
             setFileName(fileInStorage);
             setUploaded(true);
         }
-    })
+    }, [])
 
     return (
         <div className={styles.header}>
@@ -25,7 +25,7 @@ const Header = () => {
                 </Link>
                 {uploaded &&
                     <>
-                        <Link className={styles.item} to={"/tree"}>
+                        <Link className={styles.item} to={"/chart"}>
                             Chart
                         </Link>
                         <Link className={styles.item} to={"/tree"}>

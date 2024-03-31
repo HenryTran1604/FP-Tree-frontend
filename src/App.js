@@ -12,8 +12,8 @@ function App() {
       <BrowserRouter>
         <Suspense fallback={<div>loading...</div>}>
           <Routes>
+            <Route path='/' element={<UpFile/>} />
             <Route path='/tree' element={<Flow />} />
-            <Route path='/upfile' element={<UpFile/>} />
             <Route path='/chart' element={<GraphChart/>} />
           </Routes>
         </Suspense>

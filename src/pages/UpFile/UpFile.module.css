@@ -1,6 +1,5 @@
 .container {
-    /* height: 100%; */
-    padding-top: 70px;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -57,9 +56,4 @@
     display: flex;
     justify-content: space-between  ;
     width: 80%;
-}
-
-.chart_container {
-    width: 90%;
-    margin: auto;
 }

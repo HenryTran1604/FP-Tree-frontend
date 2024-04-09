@@ -3,30 +3,28 @@ import styles from './Header.module.css'
 import { Link } from "react-router-dom";
 
 const Header = () => {
-    const [fileName, setFileName] = useState();
+    const [file, setFile] = useState(null);
     const [uploaded, setUploaded] = useState(false);
 
     useEffect(() => {
-        const fileInStorage = localStorage.getItem("file");
-        if (fileInStorage === null) {
-            setUploaded(false);
-        }
-        else {
-            setFileName(fileInStorage);
-            setUploaded(true);
+        const savedFile = localStorage.getItem('file')
+        if (savedFile) {
+            const foundFile = JSON.parse(savedFile)
+            console.log(foundFile)
+            setFile(foundFile);
         }
     }, [])
 
     return (
         <div className={styles.header}>
             <div className={styles.menu}>
-                <Link className={styles.item} to={"/upfile"}>
+                <Link className={styles.item} to={"/"}>
                     Tải file lên
                 </Link>
-                {uploaded &&
+                {file &&
                     <>
-                        <Link className={styles.item} to={"/chart"}>
-                            Chart
+                        <Link className={styles.item} to={"/meta"} >
+                            Metadata
                         </Link>
                         <Link className={styles.item} to={"/tree"}>
                             Hiển thị cây
@@ -37,8 +35,15 @@ const Header = () => {
                     </>
                 }
             </div>
-            <div className={styles.team}>
-
+            <div className={styles.item}>
+                {
+                    // console.log(file)
+                    file &&
+                    <>
+                        <div> {file.displayName} </div>
+                        <span className={styles.minsup}>minSup: {file.minSup}</span>
+                    </>
+                }
             </div>
 
         </div>

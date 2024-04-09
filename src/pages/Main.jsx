@@ -20,8 +20,8 @@ export default function OrgChartTree() {
   }, [])
   useEffect(() => {
     if (file) {
-      axios.get("http://localhost:8080/create?fileName=" + file.storedName)
-        .then(res => setTree(res.data))
+      axios.get(`http://localhost:8080/create?fileName=${file.storedName}&minSup=${file.minSup}`)
+        .then(res => setTree(res.data.nodeDTO))
         .catch(err => console.log(err))
     }
 
@@ -38,7 +38,9 @@ export default function OrgChartTree() {
       <div id="treeWrapper" style={{ width: '100vw', height: '100vh' }}>
         <Tree orientation='vertical'
           pathFunc={'step'}
-          data={tree} />
+          data={tree} 
+          
+          />
       </div>
     </div>
 

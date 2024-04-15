@@ -1,11 +1,11 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import styles  from './FrequentItemset.module.css'
+import styles from './FrequentItemset.module.css'
 import Header from '../../components/Header/Header';
 
 const FrequentItemset = (props) => {
     const [file, setFile] = useState(null)
-    const [transactions, setTransactions] = useState([])
+    const [data, setData] = useState(null)
     useEffect(() => {
         const savedFile = localStorage.getItem('file')
         if (savedFile) {
@@ -18,11 +18,11 @@ const FrequentItemset = (props) => {
         const fetchTransactions = async () => {
             if (file) {
                 try {
-                    console.log(`http://localhost:8080/frequent-items?fileName=${file.storedName}&minSup=${file.minSup}`)
-                    const response = await axios.get(`http://localhost:8080/frequent-items?fileName=${file.storedName}&minSup=${file.minSup}`);
+                    console.log(`http://localhost:8080/v1/api/frequent-items?fileName=${file.storedName}&minSup=${file.minSup}`)
+                    const response = await axios.get(`http://localhost:8080/v1/api/frequent-items?fileName=${file.storedName}&minSup=${file.minSup}`);
                     const responseData = response.data;
-                    setTransactions(responseData);
-                    console.log(transactions)
+                    setData(responseData);
+                    console.log(data)
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }
@@ -32,40 +32,47 @@ const FrequentItemset = (props) => {
         fetchTransactions();
     }, [file]);
 
-    if (transactions.length === 0) {
+    if (!data) {
         return (
             <div>Loading...</div>
         )
     }
     return (
         <div>
-            <Header/>
-            <table className={styles.custom_table}>
-                <thead>
-                    <tr >
-                        <td className={styles.table_title} colSpan={2}>
-                            Bảng transaction
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>STT</th>
-                        <th>Danh sách items</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        // console.log(typeof data)
-                        Object.entries(transactions).map((x) => (
-                            <tr>
-                                <td>{parseInt(x[0]) + 1}</td>
-                                <td>{x.slice(1).join(",   ")}</td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
+            <Header />
+            <div className={styles.container}>
+                <h1>{data['duration']}</h1>
+                <table className={styles.custom_table}>
+                    <thead>
+                        <tr >
+                            <td className={styles.table_title} colSpan={3}>
+                                Bảng transaction
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>STT</th>
+                            <th>Danh sách items</th>
+                            <th>Support</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        {
+                            // console.log(transactions)
+                            data['frequentItemset'].map(({ itemset, support }, idx) => (
+                                <tr>
+                                    <td>{idx + 1}</td>
+                                    <td>{itemset.join(", ")}</td>
+                                    <td>{support}</td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
 
 
-            </table>
+                </table>
+            </div>
+
         </div>
 
     );

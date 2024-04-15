@@ -16,7 +16,8 @@ const PatternTree = (props) => {
   }, [])
   useEffect(() => {
     if (file) {
-      axios.get(`http://localhost:8080/conditional-pattern?fileName=${file.storedName}&minSup=${file.minSup}&item=${'e'}`)
+      console.log(`http://localhost:8080/v1/api/conditional-pattern?fileName=${file.storedName}&minSup=${file.minSup}&item=${'root%20vegetables'}`)
+      axios.get(`http://localhost:8080/v1/api/conditional-pattern?fileName=${file.storedName}&minSup=${file.minSup}&item=${'root%20vegetables'}`)
         .then(res => setTree(res.data))
         .catch(err => console.log(err))
     }

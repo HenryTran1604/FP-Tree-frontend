@@ -1,8 +1,4 @@
-.container {
-    height: 100%;
-    padding-top: 70px;
-    display: flex;
-}
+
 
 .container {
     padding-top: 70px;
@@ -16,6 +12,8 @@
     display: grid;
     grid-template-columns: 3fr 1fr;
     justify-content: space-around;
+    max-height: 700px;
+    overflow-y: scroll;
 }
 
 .item_detail {

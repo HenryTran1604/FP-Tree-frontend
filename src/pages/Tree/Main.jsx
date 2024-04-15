@@ -20,7 +20,7 @@ export default function OrgChartTree() {
   }, [])
   useEffect(() => {
     if (file) {
-      axios.get(`http://localhost:8080/create?fileName=${file.storedName}&minSup=${file.minSup}`)
+      axios.get(`http://localhost:8080/v1/api/create?fileName=${file.storedName}&minSup=${file.minSup}`)
         .then(res => setTree(res.data))
         .catch(err => console.log(err))
     }

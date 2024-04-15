@@ -22,7 +22,7 @@ const Metadata = () => {
         const fetchDetail = async () => {
             if (file) {
                 try {
-                    const response = await axios.get(`http://localhost:8080/updated/detail?fileName=${file.storedName}`);
+                    const response = await axios.get(`http://localhost:8080/v1/api/updated/detail?fileName=${file.storedName}`);
                     const responseData = response.data;
                     setDetail(responseData);
                     console.log(responseData);
@@ -40,7 +40,7 @@ const Metadata = () => {
         const fetchTransactions = async () => {
             if (file) {
                 try {
-                    const response = await axios.get(`http://localhost:8080/transactions?fileName=${file.storedName}&numOfRecords=${20}`);
+                    const response = await axios.get(`http://localhost:8080/v1/api/transactions?fileName=${file.storedName}&numOfRecords=${20}`);
                     const responseData = response.data;
                     setTransactions(responseData);
                 } catch (error) {
@@ -77,10 +77,10 @@ const Metadata = () => {
                             <tbody>
                                 {
                                     // console.log(typeof data)
-                                    Object.entries(transactions).map((x) => (
+                                    transactions.map(({itemset, support}, idx) => (
                                         <tr>
-                                            <td>{parseInt(x[0]) + 1}</td>
-                                            <td>{x.slice(1).join(",   ")}</td>
+                                            <td>{idx + 1}</td>
+                                            <td>{itemset.join(", ")}</td>
                                         </tr>
                                     ))
                                 }
@@ -93,11 +93,12 @@ const Metadata = () => {
                         <table className={styles.custom_table}>
                             <thead>
                                 <tr >
-                                    <td className={styles.table_title} colSpan={2}>
+                                    <td className={styles.table_title} colSpan={3}>
                                         Bảng tần suất
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th>STT</th>
                                     <th>Tên item</th>
                                     <th>Support count</th>
                                 </tr>
@@ -105,8 +106,9 @@ const Metadata = () => {
                             <tbody>
                                 {
                                     // console.log(typeof data)
-                                    Object.entries(detail).map((x) => (
+                                    Object.entries(detail).map((x, idx) => (
                                         <tr>
+                                            <td>{idx + 1}</td>
                                             <td>{x[0]}</td>
                                             <td>{x[1]}</td>
                                         </tr>

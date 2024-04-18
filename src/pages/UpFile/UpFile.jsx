@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router-dom';
 const UpFile = () => {
     const [loadedFile, setLoadedFile] = useState(null);
     const [storedFile, setStoredFile] = useState(null)
-    const [minSup, setMinSup] = useState(0.5);
+    const [minSup, setMinSup] = useState(0.05);
+    const [minConf, setMinConf] = useState(0.5);
     const [warning, setWarning] = useState('');
     const [loaded, setLoaded] = useState(false);
     const navigate = useNavigate()
@@ -29,9 +30,10 @@ const UpFile = () => {
             var formData = new FormData();
             formData.append('file', loadedFile);
             formData.append('minSup', minSup)
+            formData.append('minConf', minConf)
             try {
                 const response = await axios.post(
-                    'http://localhost:8080/v1/api/upload',
+                    'http://localhost:8080/v1/api/storage/upload',
                     formData,
                     {
                         headers: {
@@ -85,8 +87,12 @@ const UpFile = () => {
                         <div className={styles.warning}>{warning}</div>
                     </div>
                     <div className={styles.support_threshold}>
-                        <label htmlFor="threshold">Theshold:</label>
+                        <label htmlFor="threshold">Min sup:</label>
                         <input type="number" id="threshold" value={minSup} onChange={(e) => setMinSup(e.target.value)} />
+                    </div>
+                    <div className={styles.support_threshold}>
+                        <label htmlFor="threshold">Min conf:</label>
+                        <input type="number" id="threshold" value={minConf} onChange={(e) => setMinConf(e.target.value)} />
                     </div>
                     <div className={styles.action}>
                         <input type="button" onClick={handleGoClick} value={"GO"} />

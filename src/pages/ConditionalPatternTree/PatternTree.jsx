@@ -1,15 +1,15 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Tree from 'react-d3-tree';
+import { useParams } from 'react-router-dom';
 import Header from '../../components/Header/Header';
 
-// This is a simplified example of an org chart with a depth of 2.
-// Note how deeper levels are defined recursively via the `children` property.
 
-
-export default function OrgChartTree() {
+const PatternTree = (props) => {
   const [file, setFile] = useState(null)
   const [tree, setTree] = useState(null)
+  const {item} = useParams()
+  console.log(item)
   useEffect(() => {
     const savedFile = localStorage.getItem('file')
     if (savedFile) {
@@ -20,7 +20,8 @@ export default function OrgChartTree() {
   }, [])
   useEffect(() => {
     if (file) {
-      axios.get(`http://localhost:8080/v1/api/create?fileName=${file.storedName}&minSup=${file.minSup}`)
+      console.log(`http://localhost:8080/v1/api/tree/create/${item}?fileName=${file.storedName}&minSup=${file.minSup}`)
+      axios.get(`http://localhost:8080/v1/api/tree/create/${item}?fileName=${file.storedName}&minSup=${file.minSup}`)
         .then(res => setTree(res.data))
         .catch(err => console.log(err))
     }
@@ -35,15 +36,16 @@ export default function OrgChartTree() {
   }
   return (
     <div>
-      <Header />
+      <Header/>
       <div id="treeWrapper" style={{ width: '100vw', height: '100vh' }}>
         <Tree orientation='vertical'
           pathFunc={'diagonal'}
           data={tree.nodeDTO} 
-          
           />
       </div>
     </div>
 
   );
-}
+};
+
+export default PatternTree;

@@ -32,6 +32,9 @@ const Header = () => {
                         <Link className={styles.item} to={"/itemset"}>
                             Tập frequent itemset
                         </Link>
+                        <Link className={styles.item} to={"/rule"}>
+                            Rules
+                        </Link>
                     </>
                 }
             </div>
@@ -40,8 +43,15 @@ const Header = () => {
                     // console.log(file)
                     file &&
                     <>
-                        <div> {file.displayName} </div>
-                        <span className={styles.minsup}>minSup: {file.minSup}</span>
+                        <div className={styles.file_container}>
+                            <div> {file.displayName} </div>
+                            <div className={styles.weight}>
+                                <span className={styles.minsup}>minSup: {file.minSup}</span>
+                                <span className={styles.minsup}>minConf: {file.minConf}</span>
+                            </div>
+                            
+                        </div>
+                        
                     </>
                 }
             </div>

@@ -19,6 +19,7 @@
 
 .input {
     border-bottom: 1px solid #ccc;
+    margin-top: 10px;
 }
 
 .input > label {

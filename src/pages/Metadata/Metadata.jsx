@@ -3,6 +3,7 @@ import Header from '../../components/Header/Header';
 import styles from './Metadata.module.css'
 import GraphChart from '../../components/Chart/Chart';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Metadata = () => {
     const [file, setFile] = useState(null)
@@ -22,7 +23,7 @@ const Metadata = () => {
         const fetchDetail = async () => {
             if (file) {
                 try {
-                    const response = await axios.get(`http://localhost:8080/v1/api/updated/detail?fileName=${file.storedName}`);
+                    const response = await axios.get(`http://localhost:8080/v1/api/meta/updated/detail?fileName=${file.storedName}`);
                     const responseData = response.data;
                     setDetail(responseData);
                     console.log(responseData);
@@ -40,7 +41,7 @@ const Metadata = () => {
         const fetchTransactions = async () => {
             if (file) {
                 try {
-                    const response = await axios.get(`http://localhost:8080/v1/api/transactions?fileName=${file.storedName}&numOfRecords=${20}`);
+                    const response = await axios.get(`http://localhost:8080/v1/api/meta/transactions?fileName=${file.storedName}&numOfRecords=${20}`);
                     const responseData = response.data;
                     setTransactions(responseData);
                 } catch (error) {
@@ -109,7 +110,7 @@ const Metadata = () => {
                                     Object.entries(detail).map((x, idx) => (
                                         <tr>
                                             <td>{idx + 1}</td>
-                                            <td>{x[0]}</td>
+                                            <td><Link to={`/pattern/${x[0]}`}>{x[0]}</Link> </td>
                                             <td>{x[1]}</td>
                                         </tr>
                                     ))

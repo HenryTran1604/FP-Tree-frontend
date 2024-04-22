@@ -10,18 +10,13 @@ const UpFile = () => {
     const [minSup, setMinSup] = useState(0.05);
     const [minConf, setMinConf] = useState(0.5);
     const [warning, setWarning] = useState('');
-    const [loaded, setLoaded] = useState(false);
     const navigate = useNavigate()
 
 
     useEffect(() => {
         const fileInStorage = localStorage.getItem("file");
-        if (fileInStorage === null) {
-            setLoaded(false);
-        }
-        else {
+        if (fileInStorage) {
             setStoredFile(JSON.parse(fileInStorage));
-            setLoaded(true);
         }
     }, [])
 
@@ -44,7 +39,6 @@ const UpFile = () => {
                 const path = response.data;
                 localStorage.setItem('file', JSON.stringify(path));
                 setStoredFile(path)
-                setLoaded(true);
                 navigate('/meta')
             }
             catch (error) {

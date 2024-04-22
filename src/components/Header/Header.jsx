@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
     const [file, setFile] = useState(null);
-    const [uploaded, setUploaded] = useState(false);
 
     useEffect(() => {
         const savedFile = localStorage.getItem('file')

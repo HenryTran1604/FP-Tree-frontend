@@ -26,7 +26,7 @@ const PatternTree = (props) => {
         .catch(err => console.log(err))
     }
 
-  }, [file])
+  }, [file, item])
   console.log(tree)
   
   if (!tree) {

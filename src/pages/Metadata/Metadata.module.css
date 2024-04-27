@@ -7,6 +7,16 @@
     flex-direction: column;
 }
 
+.info_container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.info_text {
+    font-size: large;
+    font-weight: bold;
+}
+
 .detail {
     display: grid;
     grid-template-columns: 4fr 2fr;

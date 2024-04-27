@@ -7,8 +7,7 @@ import { Link } from 'react-router-dom';
 
 const Metadata = () => {
     const [file, setFile] = useState(null)
-    const [detail, setDetail] = useState(null)
-    const [transactions, setTransactions] = useState([])
+    const [metadata, setMetadata] = useState()
 
     useEffect(() => {
         const savedFile = localStorage.getItem('file')
@@ -19,40 +18,26 @@ const Metadata = () => {
         }
     }, [])
 
+
+
     useEffect(() => {
-        const fetchDetail = async () => {
+        const fetchMetadata = async () => {
             if (file) {
+                console.log(`http://localhost:8080/v1/api/meta?fileName=${file.storedName}&numOfRecords=${20}`)
+
                 try {
-                    const response = await axios.get(`http://localhost:8080/v1/api/meta/updated/detail?fileName=${file.storedName}`);
+                    const response = await axios.get(`http://localhost:8080/v1/api/meta?fileName=${file.storedName}&numOfRecords=${20}`);
                     const responseData = response.data;
-                    setDetail(responseData);
-                    console.log(responseData);
+                    setMetadata(responseData);
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }
             }
         };
 
-        fetchDetail();
+        fetchMetadata();
     }, [file]);
-
-
-    useEffect(() => {
-        const fetchTransactions = async () => {
-            if (file) {
-                try {
-                    const response = await axios.get(`http://localhost:8080/v1/api/meta/transactions?fileName=${file.storedName}&numOfRecords=${20}`);
-                    const responseData = response.data;
-                    setTransactions(responseData);
-                } catch (error) {
-                    console.error('Error fetching data:', error);
-                }
-            }
-        };
-
-        fetchTransactions();
-    }, [file]);
-    if (!detail) {
+    if (!metadata) {
         return (
             <div>Loading...</div>
         )
@@ -61,6 +46,14 @@ const Metadata = () => {
         <div>
             <Header />
             <div className={styles.container}>
+                <div className={styles.info_container}>
+                    <div className={styles.info_text}>
+                        Số lượng giao dịch: {metadata.numOfTransactions}
+                    </div>
+                    <div className={styles.info_text}>
+                        Số lượng items: {metadata.numOfItems}
+                    </div>
+                </div>
                 <div className={styles.detail}>
                     <div className={styles.item_detail} >
                         <table className={styles.custom_table}>
@@ -77,8 +70,9 @@ const Metadata = () => {
                             </thead>
                             <tbody>
                                 {
+                                    
                                     // console.log(typeof data)
-                                    transactions.map(({itemset, support}, idx) => (
+                                    metadata.transactions.map(({itemset, support}, idx) => (
                                         <tr>
                                             <td>{idx + 1}</td>
                                             <td>{itemset.join(", ")}</td>
@@ -107,7 +101,7 @@ const Metadata = () => {
                             <tbody>
                                 {
                                     // console.log(typeof data)
-                                    Object.entries(detail).map((x, idx) => (
+                                    Object.entries(metadata.itemFrequencies).map((x, idx) => (
                                         <tr>
                                             <td>{idx + 1}</td>
                                             <td><Link to={`/pattern/${x[0]}`}>{x[0]}</Link> </td>
@@ -124,7 +118,7 @@ const Metadata = () => {
                 </div>
 
                 <div className={styles.chart_container}>
-                    <GraphChart data={detail} />
+                    <GraphChart data={metadata.itemFrequencies} />
 
                 </div>
             </div>

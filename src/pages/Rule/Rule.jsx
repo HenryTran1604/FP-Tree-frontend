@@ -18,11 +18,10 @@ const Rule = (props) => {
         const fetchTransactions = async () => {
             if (file) {
                 try {
-                    console.log(`http://localhost:8080/v1/api/frequent-items?fileName=${file.storedName}&minSup=${file.minSup}`)
-                    const response = await axios.get(`http://localhost:8080/v1/api/frequent-items?fileName=${file.storedName}&minSup=${file.minSup}`);
+                    const response = await axios.get(`http://localhost:8080/v1/api/rules?fileName=${file.storedName}&minSup=${file.minSup}`);
                     const responseData = response.data;
                     setData(responseData);
-                    console.log(data)
+                    console.log(responseData)
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }

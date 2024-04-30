@@ -13,14 +13,17 @@ const LineChart = (props) => {
     const [graph, setGraph] = useState({
         datasets: [] // this is require
     })
+    const getLabel=()=>{
 
+    }
 
     useEffect(() => {
         // const labels = Object.keys(data);
         // const dataValues = Object.values(data);
         setGraph({
-            labels: [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5],
-            datasets: [
+            labels: Array.from({ length: (0.5 - 0.01) / 0.02 }, (_, i) => ((0.01 + i*0.02)).toPrecision(2)),
+            datasets: 
+            [
                 {
                     label: 'Apriori',
                     data: displayData.apriori,

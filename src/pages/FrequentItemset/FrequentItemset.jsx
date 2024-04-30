@@ -59,7 +59,7 @@ const FrequentItemset = (props) => {
                     <tbody>
                         {
                             // console.log(transactions)
-                            data['frequentItemSet'].map(({ itemset, support }, idx) => (
+                            data['frequentItemset'].map(({ itemset, support }, idx) => (
                                 <tr>
                                     <td>{idx + 1}</td>
                                     <td>{itemset.join(", ")}</td>

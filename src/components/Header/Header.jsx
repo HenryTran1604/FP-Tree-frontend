@@ -34,6 +34,7 @@ const Header = () => {
                         <Link className={styles.item} to={"/rule"}>
                             Rules
                         </Link>
+                        <Link className={styles.item} to={"/compare"}>So sánh</Link>
                     </>
                 }
             </div>

@@ -9,6 +9,7 @@ import Metadata from './pages/Metadata/Metadata';
 import PatternTree from './pages/ConditionalPatternTree/PatternTree';
 import FrequentItemset from './pages/FrequentItemset/FrequentItemset';
 import Rule from './pages/Rule/Rule';
+import Compare from './pages/Compare/Compare';
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
               <Route path='/itemset' element={<FrequentItemset/>}/>
               <Route path='/rule' element={<Rule/>}/>
               <Route path='/pattern/:item' element={<PatternTree />} />
-
+              <Route path='/compare' element={<Compare />} />
             </Routes>
         </Suspense>
 

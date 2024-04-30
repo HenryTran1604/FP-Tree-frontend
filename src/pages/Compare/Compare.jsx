@@ -24,16 +24,6 @@ const Compare = () => {
         }
         fetchData()
     },[compareData])
-    const data = {
-        runTime: {
-            fpTree: [200,160,150,130,100,70,60,50,40,10],
-            apriori: [1200,1160,850,730,600,570,460,350,240,110]
-        },
-        memory:{
-            fpTree: [120,100,88,76,65,50,45,40,30,24],
-            apriori: [340,300,260,230,196,150,144,110,80,50]
-        }
-    }
 
     return (
         <div>
@@ -43,11 +33,11 @@ const Compare = () => {
                 <div className={styles.chartsContainer} >
                     <div className={styles.chart}>
                         <h2 className={styles.chartTitle}>Thời gian chạy theo minsup</h2>
-                        <LineChart displayData={data.runTime} yLabel="Thời gian chạy (ms)" />
+                        <LineChart displayData={compareData.duration} yLabel="Thời gian chạy (ms)" />
                     </div>
                     <div className={styles.chart}>
                         <h2 className={styles.chartTitle}>Bộ nhớ sử dụng theo minsup</h2>
-                        <LineChart displayData={data.memory}  yLabel="Bộ nhớ sử dụng (kB)" />
+                        <LineChart displayData={compareData.memory}  yLabel="Bộ nhớ sử dụng (kB)" />
                     </div>
                 </div>
             </div>

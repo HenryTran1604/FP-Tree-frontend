@@ -22,7 +22,7 @@ const FrequentItemset = (props) => {
                     const response = await axios.get(`http://localhost:8080/v1/api/frequent-items?fileName=${file.storedName}&minSup=${file.minSup}`);
                     const responseData = response.data;
                     setData(responseData);
-                    // console.log(data)
+                    // console.log(responseData)
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }
@@ -37,6 +37,7 @@ const FrequentItemset = (props) => {
             <div>Loading...</div>
         )
     }
+    console.log(data)
     return (
         <div>
             <Header />
@@ -59,7 +60,7 @@ const FrequentItemset = (props) => {
                     <tbody>
                         {
                             // console.log(transactions)
-                            data['frequentItemset'].map(({ itemset, support }, idx) => (
+                            data['frequentItemSet'].map(({ itemset, support }, idx) => (
                                 <tr>
                                     <td>{idx + 1}</td>
                                     <td>{itemset.join(", ")}</td>

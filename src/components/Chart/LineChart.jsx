@@ -66,8 +66,7 @@ const LineChart = (props) => {
                         }
                     },
                     datalabels: {
-                        align: 'top',
-                        anchor: 'end'
+                        display:false
                     }
                 },
                 scales: {

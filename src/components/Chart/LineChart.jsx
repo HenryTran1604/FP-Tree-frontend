@@ -21,7 +21,7 @@ const LineChart = (props) => {
         // const labels = Object.keys(data);
         // const dataValues = Object.values(data);
         setGraph({
-            labels: Array.from({ length: (0.5 - 0.01) / 0.02 }, (_, i) => ((0.01 + i*0.02)).toPrecision(2)),
+            labels: Array.from({ length: (0.5 - 0.01) / 0.02 +1 }, (_, i) => ((0.01 + i*0.02)).toPrecision(2)),
             datasets: 
             [
                 {
@@ -66,8 +66,7 @@ const LineChart = (props) => {
                         }
                     },
                     datalabels: {
-                        align: 'top',
-                        anchor: 'end'
+                        display:false
                     }
                 },
                 scales: {
@@ -87,6 +86,7 @@ const LineChart = (props) => {
 
                     },
                     x: {
+                        beginAtZero:true,
                         title: {
                             display: "true",
                             text: "Minsup"
@@ -96,8 +96,11 @@ const LineChart = (props) => {
                                 size: 13,
 
                             },
-                            color: "black"
-                        }
+                            color: "black",
+                            minRotation:70,
+                            maxRotation:70
+                        },
+                        
                     }
                 },
                 elements: {

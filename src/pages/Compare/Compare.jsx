@@ -25,7 +25,6 @@ const Compare = () => {
 
     useEffect(() => {
         if (file) {
-            console.log(`http://localhost:8080/v1/api/compare?fileName=${file.storedName}`)
             const fetchData = () => {
                 fetch(`http://localhost:8080/v1/api/compare?fileName=${file.storedName}`)
                     .then(res => res.json())

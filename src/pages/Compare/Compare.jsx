@@ -17,15 +17,15 @@ const Compare = () => {
     useEffect(() => {
         const storedData = localStorage.getItem("file")
         if (storedData) {
-            console.log(storedData)
+            // console.log(storedData)
             setFile(JSON.parse(storedData))
-            console.log(storedData)
+            // console.log(storedData)
         }
     }, [])
 
     useEffect(() => {
         if (file) {
-            console.log(`http://localhost:8080/v1/api/compare?fileName=${file.storedName}`)
+            // console.log(`http://localhost:8080/v1/api/compare?fileName=${file.storedName}`)
             const fetchData = () => {
                 fetch(`http://localhost:8080/v1/api/compare?fileName=${file.storedName}`)
                     .then(res => res.json())

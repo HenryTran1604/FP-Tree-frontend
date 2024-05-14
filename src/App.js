@@ -23,7 +23,7 @@ function App() {
               <Route path='/chart' element={<GraphChart />} />
               <Route path='/itemset' element={<FrequentItemset/>}/>
               <Route path='/rule' element={<Rule/>}/>
-              <Route path='/pattern/:item' element={<PatternTree />} />
+              <Route path='/pattern' element={<PatternTree />} />
               <Route path='/compare' element={<Compare />} />
             </Routes>
         </Suspense>

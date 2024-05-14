@@ -10,7 +10,7 @@ const FrequentItemset = (props) => {
         const savedFile = localStorage.getItem('file')
         if (savedFile) {
             const foundFile = JSON.parse(savedFile)
-            console.log(foundFile)
+            // console.log(foundFile)
             setFile(foundFile);
         }
     }, [])
@@ -18,7 +18,7 @@ const FrequentItemset = (props) => {
         const fetchTransactions = async () => {
             if (file) {
                 try {
-                    console.log(`http://localhost:8080/v1/api/frequent-items?fileName=${file.storedName}&minSup=${file.minSup}`)
+                    // console.log(`http://localhost:8080/v1/api/frequent-items?fileName=${file.storedName}&minSup=${file.minSup}`)
                     const response = await axios.get(`http://localhost:8080/v1/api/frequent-items?fileName=${file.storedName}&minSup=${file.minSup}`);
                     const responseData = response.data;
                     setData(responseData);
@@ -42,7 +42,7 @@ const FrequentItemset = (props) => {
         <div>
             <Header />
             <div className={styles.container}>
-                <h1>{data['duration']}</h1>
+                <h2>Thời gian xây dựng và duyệt cây: {data['duration']} (ms)</h2>
                 <table className={styles.custom_table}>
                     <thead>
                         <tr >

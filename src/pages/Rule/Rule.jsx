@@ -10,7 +10,7 @@ const Rule = (props) => {
         const savedFile = localStorage.getItem('file')
         if (savedFile) {
             const foundFile = JSON.parse(savedFile)
-            console.log(foundFile)
+            // console.log(foundFile)
             setFile(foundFile);
         }
     }, [])
@@ -18,11 +18,9 @@ const Rule = (props) => {
         const fetchTransactions = async () => {
             if (file) {
                 try {
-                    // console.log(`http://localhost:8080/v1/api/rules?fileName=${file.storedName}&minSup=${file.minSup}&minConf=${file.minConf}`)
                     const response = await axios.get(`http://localhost:8080/v1/api/rules?fileName=${file.storedName}&minSup=${file.minSup}&minConf=${file.minConf}`);
                     const responseData = response.data;
                     setData(responseData);
-                    // console.log(data)
                 } catch (error) {
                     console.error('Error fetching data:', error);
                 }
@@ -41,7 +39,7 @@ const Rule = (props) => {
         <div>
             <Header />
             <div className={styles.container}>
-                <h1>{data['duration']}</h1>
+                <h2>Thời gian xử lý: {data['duration']} (ms)</h2>
                 <table className={styles.custom_table}>
                     <thead>
                         <tr >

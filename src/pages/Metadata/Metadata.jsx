@@ -13,7 +13,7 @@ const Metadata = () => {
         const savedFile = localStorage.getItem('file')
         if (savedFile) {
             const foundFile = JSON.parse(savedFile)
-            console.log(foundFile)
+            // console.log(foundFile)
             setFile(foundFile);
         }
     }, [])
@@ -23,7 +23,7 @@ const Metadata = () => {
     useEffect(() => {
         const fetchMetadata = async () => {
             if (file) {
-                console.log(`http://localhost:8080/v1/api/meta?fileName=${file.storedName}&numOfRecords=${20}`)
+                // console.log(`http://localhost:8080/v1/api/meta?fileName=${file.storedName}&numOfRecords=${20}`)
 
                 try {
                     const response = await axios.get(`http://localhost:8080/v1/api/meta?fileName=${file.storedName}&numOfRecords=${20}`);
@@ -104,7 +104,7 @@ const Metadata = () => {
                                     Object.entries(metadata.itemFrequencies).map((x, idx) => (
                                         <tr>
                                             <td>{idx + 1}</td>
-                                            <td><Link to={`/pattern/${x[0]}`}>{x[0]}</Link> </td>
+                                            <td><Link to={`/pattern?query=${x[0]}`}>{x[0]}</Link> </td>
                                             <td>{x[1]}</td>
                                         </tr>
                                     ))
